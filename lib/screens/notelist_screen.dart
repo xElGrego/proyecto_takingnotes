@@ -1,6 +1,5 @@
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
-import 'package:path/path.dart';
 import 'package:provider/provider.dart';
 import 'package:proyecto_takingnotes/helper/note_provider.dart';
 import 'package:proyecto_takingnotes/screens/noteedit_screen.dart';
@@ -46,7 +45,9 @@ class NoteListPage extends StatelessWidget {
         decoration: BoxDecoration(
           color: headerColor,
           borderRadius: BorderRadius.only(
-            bottomRight: Radius.circular(105),
+        
+            topLeft: Radius.circular(205),
+            topRight: Radius.circular(205),
           ),
         ),
         height: 150,
@@ -102,7 +103,9 @@ class NoteListPage extends StatelessWidget {
                 width: 200,
               ),
             ),
-            SizedBox(height: 20,),
+            SizedBox(
+              height: 20,
+            ),
             RichText(
               text: TextSpan(
                 style: noNotesStyle,

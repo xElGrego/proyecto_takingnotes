@@ -1,6 +1,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.proyecto_takingnotes">
    <application
+        android:requestLegacyExternalStorage="true"
         android:label="proyecto_takingnotes"
         android:icon="@mipmap/ic_launcher">
         <activity
