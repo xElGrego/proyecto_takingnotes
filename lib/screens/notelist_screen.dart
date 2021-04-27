@@ -1,9 +1,12 @@
+import 'dart:html';
+
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:proyecto_takingnotes/helper/note_provider.dart';
 import 'package:proyecto_takingnotes/screens/noteedit_screen.dart';
 import 'package:proyecto_takingnotes/utils/constants.dart';
+import 'package:proyecto_takingnotes/widgets/note_list.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class NoteListPage extends StatelessWidget {
@@ -21,8 +24,26 @@ class NoteListPage extends StatelessWidget {
             return Scaffold(
               body: Consumer<NoteProvider>(
                 child: notesUI(context),
-                builder: (context, noteprovider, child) =>
-                    noteprovider.items.length <= 0 ? child : Container(),
+                builder: (context, noteprovider, child) => noteprovider.items.length <= 0
+                    ? child
+                    : ListView.builder(
+                        itemCount: noteprovider.items.length + 1,
+                        itemBuilder: (context, index) {
+                          if (index == 0) {
+                            return header();
+                          } else {
+                            final i = index - 1;
+                            final item = noteprovider.items[i];
+                            return ListItem(
+                              id: item.id,
+                              content: item.content,
+                              title: item.title,
+                              imagePath: item.imagePath,
+                              date: item.date,
+                            );
+                          }
+                        },
+                      ),
               ),
               floatingActionButton: FloatingActionButton(
                 onPressed: () {
@@ -45,7 +66,6 @@ class NoteListPage extends StatelessWidget {
         decoration: BoxDecoration(
           color: headerColor,
           borderRadius: BorderRadius.only(
-        
             topLeft: Radius.circular(205),
             topRight: Radius.circular(205),
           ),

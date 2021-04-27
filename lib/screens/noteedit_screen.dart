@@ -2,6 +2,11 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:path/path.dart';
+import 'package:path_provider/path_provider.dart';
+import 'package:provider/provider.dart';
+import 'package:proyecto_takingnotes/helper/note_provider.dart';
+import 'package:proyecto_takingnotes/screens/noteview_screen.dart';
 import 'package:proyecto_takingnotes/utils/constants.dart';
 
 class NoteEditPage extends StatefulWidget {
@@ -12,12 +17,10 @@ class NoteEditPage extends StatefulWidget {
 }
 
 class _NoteEditPageState extends State<NoteEditPage> {
-  
   final titleController = TextEditingController();
   final contentController = TextEditingController();
   File _image;
-
-
+  final picker = ImagePicker();
 
   @override
   void dispose() {
@@ -25,7 +28,6 @@ class _NoteEditPageState extends State<NoteEditPage> {
     contentController.dispose();
     super.dispose();
   }
-
 
   @override
   Widget build(BuildContext context) {
@@ -86,7 +88,7 @@ class _NoteEditPageState extends State<NoteEditPage> {
             if (_image != null)
               Container(
                 padding: EdgeInsets.all(15),
-                height: 200,
+                height: MediaQuery.of(context).size.height / 2,
                 width: MediaQuery.of(context).size.width,
                 child: Stack(
                   children: [
@@ -95,7 +97,7 @@ class _NoteEditPageState extends State<NoteEditPage> {
                         borderRadius: BorderRadius.circular(20),
                         image: DecorationImage(
                           image: FileImage(_image),
-                          fit: BoxFit.cover,
+                          fit: BoxFit.contain,
                         ),
                       ),
                     ),
@@ -142,7 +144,7 @@ class _NoteEditPageState extends State<NoteEditPage> {
         onPressed: () {
           if (titleController.text.isEmpty) {
             titleController.text = 'Nota sin titulo';
-            //savenote();
+            savenote();
           }
         },
         child: Icon(
@@ -154,5 +156,33 @@ class _NoteEditPageState extends State<NoteEditPage> {
     );
   }
 
-  getImage(ImageSource camera) {}
+  getImage(ImageSource imageSource) async {
+    // final  picker = ImagePicker(); variabla estanciada
+    //Añadiendo las imagenes
+    PickedFile imagefile = await picker.getImage(source: imageSource);
+    if (imagefile == null) return null;
+
+    File tempfile = File(imagefile.path);
+    final appdir = await getApplicationDocumentsDirectory();
+    final filename = basename(imagefile.path);
+
+    tempfile = await tempfile.copy('${appdir.path}/$filename');
+
+    setState(() {
+      _image = tempfile;
+    });
+  }
+
+  void savenote() {
+    String title = titleController.text.trim();
+    String content = contentController.text.trim();
+    String imagePath = _image != null ? _image.path : null;
+
+    int id = DateTime.now().millisecondsSinceEpoch;
+
+    Provider.of<NoteProvider>(this.context, listen: false)
+        .addNoteOrUpdate(id, title, content, imagePath, EditMode.ADD);
+
+    Navigator.of(this.context).pushReplacementNamed(NoteViewPage.route, arguments: id);
+  }
 }

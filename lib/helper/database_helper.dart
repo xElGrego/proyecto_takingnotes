@@ -16,12 +16,17 @@ class DataBaseHelper {
       // Cuando la base de datos se crea por primera vez, crea una tabla para almacenar la data
       onCreate: (database, version) {
         return database.execute(
-            'CREATE TABLE Notes(id INTERGER PRIMARY KEY,title TEXT, content TEXT, imagepath TEXT )');
+            'CREATE TABLE Notes(id INTERGER PRIMARY KEY,title TEXT, content TEXT, imagePath TEXT )');
       },
       // Establece la versión. Esto ejecuta la función onCreate y proporciona una
       // ruta para realizar actualizacones y defradaciones en la base de datos.
       version: 1,
     );
+  }
+
+  static Future insert(Map<String,Object> data) async{
+      final database = await DataBaseHelper.database();
+      database.insert("notes", data, conflictAlgorithm: ConflictAlgorithm.replace);
   }
 
   static Future<List<Map<String, dynamic>>> getNotesfromDB() async {
