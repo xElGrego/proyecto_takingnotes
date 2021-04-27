@@ -9,6 +9,7 @@ class ListItem extends StatelessWidget {
   final String imagePath;
   final String date;
   ListItem({this.id, this.title, this.content, this.imagePath, this.date});
+  
   @override
   Widget build(BuildContext context) {
     return Container(

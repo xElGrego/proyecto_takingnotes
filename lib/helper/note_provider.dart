@@ -13,6 +13,8 @@ class NoteProvider with ChangeNotifier {
   Note getNote(int id) {
     return _items.firstWhere((note) => note.id == id, orElse: () => null);
   }
+
+  
     Future deleteNote(int id) {
     _items.removeWhere((element) => element.id == id);
     notifyListeners();

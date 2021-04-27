@@ -16,6 +16,7 @@ class NoteViewPage extends StatefulWidget {
 
 class _NoteViewPageState extends State<NoteViewPage> {
   Note selectedNote;
+
   @override
   void didChangeDependencies() {
     super.didChangeDependencies();
@@ -101,9 +102,10 @@ class _NoteViewPageState extends State<NoteViewPage> {
 
   _showDialog() {
     showDialog(
-        context: this.context,
-        builder: (context) {
-          return DeletePopUp(selectedNote: selectedNote);
-        });
+      context: this.context,
+      builder: (context) {
+        return DeletePopUp(selectedNote: selectedNote);
+      },
+    );
   }
 }
