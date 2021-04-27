@@ -6,6 +6,7 @@ import 'package:path/path.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:provider/provider.dart';
 import 'package:proyecto_takingnotes/helper/note_provider.dart';
+import 'package:proyecto_takingnotes/models/note.dart';
 import 'package:proyecto_takingnotes/screens/noteview_screen.dart';
 import 'package:proyecto_takingnotes/utils/constants.dart';
 
@@ -27,6 +28,26 @@ class _NoteEditPageState extends State<NoteEditPage> {
     titleController.dispose();
     contentController.dispose();
     super.dispose();
+  }
+
+  bool firstTime = true;
+  Note selectedNote;
+  int id;
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    if (firstTime) {
+      id = ModalRoute.of(this.context).settings.arguments;
+      if (id != null) {
+        selectedNote = Provider.of<NoteProvider>(this.context, listen: false).getNote(id);
+        titleController.text = selectedNote?.title;
+        contentController.text = selectedNote?.content;
+        if (selectedNote?.imagePath != null) {
+          _image = File(selectedNote.imagePath);
+        }
+      }
+      firstTime = false;
+    }
   }
 
   @override
@@ -142,10 +163,8 @@ class _NoteEditPageState extends State<NoteEditPage> {
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: () {
-          if (titleController.text.isEmpty) {
-            titleController.text = 'Nota sin titulo';
-            savenote();
-          }
+          if (titleController.text.isEmpty) titleController.text = 'Nota sin titulo';
+          savenote();
         },
         child: Icon(
           Icons.save,
@@ -174,15 +193,19 @@ class _NoteEditPageState extends State<NoteEditPage> {
   }
 
   void savenote() {
+    print("presionandto save note");
     String title = titleController.text.trim();
     String content = contentController.text.trim();
     String imagePath = _image != null ? _image.path : null;
-
-    int id = DateTime.now().millisecondsSinceEpoch;
-
-    Provider.of<NoteProvider>(this.context, listen: false)
-        .addNoteOrUpdate(id, title, content, imagePath, EditMode.ADD);
-
-    Navigator.of(this.context).pushReplacementNamed(NoteViewPage.route, arguments: id);
+    if (id != null) {
+      Provider.of<NoteProvider>(this.context, listen: false)
+          .addNoteOrUpdate(id, title, content, imagePath, EditMode.UPDATE);
+      Navigator.of(this.context).pop();
+    } else {
+      int id = DateTime.now().millisecondsSinceEpoch;
+      Provider.of<NoteProvider>(this.context, listen: false)
+          .addNoteOrUpdate(id, title, content, imagePath, EditMode.ADD);
+      Navigator.of(this.context).pushReplacementNamed(NoteViewPage.route, arguments: id);
+    }
   }
 }

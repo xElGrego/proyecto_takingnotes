@@ -23,6 +23,10 @@ class DataBaseHelper {
       version: 1,
     );
   }
+   static Future delete(int id) async {
+    final database = await DataBaseHelper.database();
+    return database.delete('notes', where: 'id = ?', whereArgs: [id]);
+  }
 
   static Future insert(Map<String,Object> data) async{
       final database = await DataBaseHelper.database();
