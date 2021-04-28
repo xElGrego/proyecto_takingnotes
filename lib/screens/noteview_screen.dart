@@ -6,6 +6,7 @@ import 'package:proyecto_takingnotes/helper/note_provider.dart';
 import 'package:proyecto_takingnotes/models/note.dart';
 import 'package:proyecto_takingnotes/screens/noteedit_screen.dart';
 import 'package:proyecto_takingnotes/utils/constants.dart';
+import 'package:proyecto_takingnotes/utils/theme.dart';
 import 'package:proyecto_takingnotes/widgets/delet_pop.dart';
 
 class NoteViewPage extends StatefulWidget {
@@ -16,6 +17,9 @@ class NoteViewPage extends StatefulWidget {
 
 class _NoteViewPageState extends State<NoteViewPage> {
   Note selectedNote;
+
+  //Para obtener el identificador pasado desde otras pantallas,
+  // utilice ModalRoute.of(context).settings.arguments.
 
   @override
   void didChangeDependencies() {
@@ -30,14 +34,13 @@ class _NoteViewPageState extends State<NoteViewPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: white,
+      backgroundColor: Theme.of(context).canvasColor,
       appBar: AppBar(
         elevation: 0.7,
-        backgroundColor: Colors.white,
         leading: IconButton(
           icon: Icon(
             Icons.arrow_back,
-            color: Colors.black,
+            color: Theme.of(context).accentColor,
           ),
           onPressed: () {
             Navigator.pop(context);
@@ -47,7 +50,7 @@ class _NoteViewPageState extends State<NoteViewPage> {
           IconButton(
             icon: Icon(
               Icons.delete,
-              color: Colors.black,
+              color: Theme.of(context).accentColor,
             ),
             onPressed: () => _showDialog(),
           ),
@@ -61,7 +64,10 @@ class _NoteViewPageState extends State<NoteViewPage> {
               padding: const EdgeInsets.all(8.0),
               child: Text(
                 selectedNote?.title,
-                style: viewTitleStyle,
+                style: Theme.of(context).textTheme.overline.copyWith(
+                      color: Theme.of(context).accentColor,
+                      fontSize: 12,
+                    ),
               ),
             ),
             Row(
@@ -79,13 +85,18 @@ class _NoteViewPageState extends State<NoteViewPage> {
             if (selectedNote.imagePath != null)
               Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 8.0),
-                child: Image.file(File(selectedNote.imagePath)),
+                child: Image.file(
+                  File(selectedNote.imagePath),
+                ),
               ),
             Padding(
               padding: const EdgeInsets.all(16.0),
               child: Text(
                 selectedNote.content,
-                style: viewContentStyle,
+                style: Theme.of(context).textTheme.overline.copyWith(
+                      color: DeliveryColors.ligthGrey,
+                      fontSize: 12,
+                    ),
               ),
             ),
           ],

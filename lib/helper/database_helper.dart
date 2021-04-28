@@ -28,6 +28,8 @@ class DataBaseHelper {
     return database.delete('notes', where: 'id = ?', whereArgs: [id]);
   }
 
+  //ConflictAlgorithm.replace: reemplazará los datos cuando se 
+  //produzca una infracción de restricción única.Cuando el id se repita dos veces.
   static Future insert(Map<String,Object> data) async{
       final database = await DataBaseHelper.database();
       database.insert("notes", data, conflictAlgorithm: ConflictAlgorithm.replace);

@@ -4,6 +4,7 @@ import 'package:proyecto_takingnotes/helper/note_provider.dart';
 import 'package:proyecto_takingnotes/screens/noteedit_screen.dart';
 import 'package:proyecto_takingnotes/screens/notelist_screen.dart';
 import 'package:proyecto_takingnotes/screens/noteview_screen.dart';
+import 'package:proyecto_takingnotes/utils/theme.dart';
 
 void main() => runApp(MyApp());
 
@@ -16,9 +17,7 @@ class MyApp extends StatelessWidget {
       child: MaterialApp(
         title: 'Flutter Demo',
         debugShowCheckedModeBanner: false,
-        theme: ThemeData(
-          primarySwatch: Colors.blue,
-        ),
+        theme: ligthTheme,
         initialRoute: '/',
         routes: {
           '/': (context) => NoteListPage(),

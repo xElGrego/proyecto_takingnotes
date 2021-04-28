@@ -9,7 +9,7 @@ class NoteProvider with ChangeNotifier {
     return [..._items];
   }
 
-
+  //Para acceder a la nota con id.
   Note getNote(int id) {
     return _items.firstWhere((note) => note.id == id, orElse: () => null);
   }

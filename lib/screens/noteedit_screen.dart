@@ -33,6 +33,7 @@ class _NoteEditPageState extends State<NoteEditPage> {
   bool firstTime = true;
   Note selectedNote;
   int id;
+
   @override
   void didChangeDependencies() {
     super.didChangeDependencies();
@@ -53,11 +54,13 @@ class _NoteEditPageState extends State<NoteEditPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: white,
+      backgroundColor: Theme.of(context).canvasColor,
       appBar: AppBar(
+        
         title: Text(
           "Note Edit",
           style: TextStyle(
+            color: Theme.of(context).accentColor,
             fontSize: 30,
           ),
         ),
@@ -69,21 +72,21 @@ class _NoteEditPageState extends State<NoteEditPage> {
         actions: [
           IconButton(
             icon: Icon(Icons.photo_camera),
-            color: black,
+            color: Theme.of(context).iconTheme.color,
             onPressed: () {
               getImage(ImageSource.camera);
             },
           ),
           IconButton(
             icon: Icon(Icons.insert_photo),
-            color: black,
+            color: Theme.of(context).iconTheme.color,
             onPressed: () {
               getImage(ImageSource.gallery);
             },
           ),
           IconButton(
             icon: Icon(Icons.delete),
-            color: black,
+            color: Theme.of(context).iconTheme.color,
             onPressed: () {
               Navigator.of(context).pop();
             },
@@ -96,13 +99,22 @@ class _NoteEditPageState extends State<NoteEditPage> {
             Padding(
               padding: const EdgeInsets.all(15.0),
               child: TextField(
+                textAlign: TextAlign.center,
                 controller: titleController,
-                style: createTitle,
+                style: Theme.of(context).textTheme.overline.copyWith(
+                      fontSize: 12,
+                      color: Theme.of(context).accentColor,
+
+                    ),
                 maxLines: null,
                 textCapitalization: TextCapitalization.sentences,
                 decoration: InputDecoration(
                   hintText: 'Ingresa el titulo',
                   border: InputBorder.none,
+                  hintStyle: Theme.of(context).textTheme.overline.copyWith(
+                        color: Theme.of(context).accentColor,
+                        fontSize: 12,
+                      ),
                 ),
               ),
             ),
@@ -151,9 +163,13 @@ class _NoteEditPageState extends State<NoteEditPage> {
               padding: const EdgeInsets.all(15),
               child: TextField(
                 controller: contentController,
+                textAlign: TextAlign.center,
                 decoration: InputDecoration(
                   hintText: 'Ingresa el contenido',
-                  hintStyle: createContent,
+                  hintStyle: Theme.of(context).textTheme.overline.copyWith(
+                        color: Theme.of(context).accentColor,
+                        fontSize: 12,
+                      ),
                   border: InputBorder.none,
                 ),
               ),
@@ -168,7 +184,7 @@ class _NoteEditPageState extends State<NoteEditPage> {
         },
         child: Icon(
           Icons.save,
-          color: Colors.white,
+          color: Theme.of(context).canvasColor,
           size: 35,
         ),
       ),
@@ -193,7 +209,6 @@ class _NoteEditPageState extends State<NoteEditPage> {
   }
 
   void savenote() {
-    print("presionandto save note");
     String title = titleController.text.trim();
     String content = contentController.text.trim();
     String imagePath = _image != null ? _image.path : null;

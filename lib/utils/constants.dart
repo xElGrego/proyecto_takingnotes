@@ -1,6 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-const grey = Color(0xFFEAEAEA);
+enum EditMode {
+  ADD,
+  UPDATE,
+}
+/* const grey = Color(0xFFEAEAEA);
 const grey2 = Color(0xFF6D6D6D);
 const black = Color(0xFF1C1C1C);
 const black2 = Color(0xFF424242);
@@ -19,10 +23,7 @@ var headerNotesStyle = GoogleFonts.roboto(
     fontWeight: FontWeight.bold,
   ),
 );
-enum EditMode {
-  ADD,
-  UPDATE,
-}
+
 var noNotesStyle = GoogleFonts.roboto(
   textStyle: TextStyle(
     fontSize: 22.0,
@@ -78,10 +79,9 @@ var createContent = GoogleFonts.roboto(
     fontWeight: FontWeight.w400,
   ),
 );
-var shadow = [
+ */var shadow = [
   BoxShadow(
     color: Colors.grey[300],
-    blurRadius: 30,
-    offset: Offset(0, 10),
+    blurRadius: 10,
   )
 ];

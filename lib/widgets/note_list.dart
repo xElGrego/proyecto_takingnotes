@@ -1,7 +1,8 @@
 import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:proyecto_takingnotes/screens/noteview_screen.dart';
-import '../utils/constants.dart';
+import 'package:proyecto_takingnotes/utils/theme.dart';
+
 class ListItem extends StatelessWidget {
   final int id;
   final String title;
@@ -9,7 +10,7 @@ class ListItem extends StatelessWidget {
   final String imagePath;
   final String date;
   ListItem({this.id, this.title, this.content, this.imagePath, this.date});
-  
+
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -25,9 +26,11 @@ class ListItem extends StatelessWidget {
           padding: EdgeInsets.symmetric(horizontal: 12.0),
           decoration: BoxDecoration(
             color: Colors.white,
-            boxShadow: shadow,
             borderRadius: BorderRadius.circular(15.0),
-            border: Border.all(color: grey, width: 1.0),
+            border: Border.all(
+              color: Theme.of(context).accentColor,
+              width: 1.0,
+            ),
           ),
           child: Row(
             children: [
@@ -41,35 +44,42 @@ class ListItem extends StatelessWidget {
                         title,
                         overflow: TextOverflow.ellipsis,
                         maxLines: 2,
-                        style: itemTitle,
+                        style: Theme.of(context).textTheme.overline.copyWith(
+                              color: DeliveryColors.ligthGrey,
+                              fontSize: 12,
+                            ),
                       ),
                       SizedBox(height: 4.0),
                       Text(
                         date,
                         overflow: TextOverflow.ellipsis,
-                        style: itemDateStyle,
+                        style: Theme.of(context).textTheme.overline.copyWith(
+                              color: DeliveryColors.ligthGrey,
+                              fontSize: 12,
+                            ),
                       ),
-                      SizedBox(
-                        height: 8.0,
-                      ),
+                      SizedBox(height: 8.0),
                       Expanded(
                         child: Text(
                           content,
                           maxLines: 2,
                           overflow: TextOverflow.ellipsis,
-                          style: itemContentStyle,
+                          style: Theme.of(context).textTheme.overline.copyWith(
+                                color: DeliveryColors.ligthGrey,
+                                fontSize: 12,
+                              ),
                         ),
                       ),
                     ],
                   ),
                 ),
               ),
-              if(imagePath!=null)
-              Row(
-                children: [
-                  SizedBox(
-                    width: 12.0,
-                  ),
+              if (imagePath != null)
+                Row(
+                  children: [
+                    SizedBox(
+                      width: 12.0,
+                    ),
                     Container(
                       width: 80.0,
                       height: 95.0,
@@ -83,8 +93,8 @@ class ListItem extends StatelessWidget {
                         ),
                       ),
                     ),
-                ],
-              ),
+                  ],
+                ),
             ],
           ),
         ),

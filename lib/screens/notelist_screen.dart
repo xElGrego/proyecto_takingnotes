@@ -1,12 +1,10 @@
-
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:proyecto_takingnotes/helper/note_provider.dart';
 import 'package:proyecto_takingnotes/screens/noteedit_screen.dart';
-import 'package:proyecto_takingnotes/utils/constants.dart';
+import 'package:proyecto_takingnotes/utils/theme.dart';
 import 'package:proyecto_takingnotes/widgets/note_list.dart';
-import 'package:url_launcher/url_launcher.dart';
 
 class NoteListPage extends StatelessWidget {
   @override
@@ -20,35 +18,38 @@ class NoteListPage extends StatelessWidget {
           );
         } else {
           if (snapshot.connectionState == ConnectionState.done) {
-            return Scaffold(
-              body: Consumer<NoteProvider>(
-                child: notesUI(context),
-                builder: (context, noteprovider, child) => noteprovider.items.length <= 0
-                    ? child
-                    : ListView.builder(
-                        itemCount: noteprovider.items.length + 1,
-                        itemBuilder: (context, index) {
-                          if (index == 0) {
-                            return header();
-                          } else {
-                            final i = index - 1;
-                            final item = noteprovider.items[i];
-                            return ListItem(
-                              id: item.id,
-                              content: item.content,
-                              title: item.title,
-                              imagePath: item.imagePath,
-                              date: item.date,
-                            );
-                          }
-                        },
-                      ),
-              ),
-              floatingActionButton: FloatingActionButton(
-                onPressed: () {
-                  gotoNoteEditScreen(context);
-                },
-                child: Icon(Icons.add),
+            return SafeArea(
+              child: Scaffold(
+                backgroundColor: Theme.of(context).canvasColor,
+                body: Consumer<NoteProvider>(
+                  child: notesUI(context),
+                  builder: (context, noteprovider, child) => noteprovider.items.length <= 0
+                      ? child
+                      : ListView.builder(
+                          itemCount: noteprovider.items.length + 1,
+                          itemBuilder: (context, index) {
+                            if (index == 0) {
+                              return header(context);
+                            } else {
+                              final i = index - 1;
+                              final item = noteprovider.items[i];
+                              return ListItem(
+                                id: item.id,
+                                content: item.content,
+                                title: item.title,
+                                imagePath: item.imagePath,
+                                date: item.date,
+                              );
+                            }
+                          },
+                        ),
+                ),
+                floatingActionButton: FloatingActionButton(
+                  onPressed: () {
+                    gotoNoteEditScreen(context);
+                  },
+                  child: Icon(Icons.add),
+                ),
               ),
             );
           }
@@ -58,36 +59,27 @@ class NoteListPage extends StatelessWidget {
     );
   }
 
-  Widget header() {
+  Widget header(BuildContext context) {
     return GestureDetector(
-      onTap: _launchurl,
       child: Container(
         decoration: BoxDecoration(
-          color: headerColor,
-          borderRadius: BorderRadius.only(
-            topLeft: Radius.circular(205),
-            topRight: Radius.circular(205),
-          ),
+          color: Theme.of(context).canvasColor,
         ),
-        height: 150,
+        height: 100,
         width: double.infinity,
         child: Padding(
           padding: EdgeInsets.only(top: 26, right: 10, left: 10),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
-              Text(
-                "App Notes - Grego",
-                style: headerRideStyle.copyWith(
-                  fontSize: 24,
-                ),
-                textAlign: TextAlign.center,
-              ),
               Padding(
                 padding: EdgeInsets.all(5),
                 child: Text(
                   "NotsGrego",
-                  style: headerNotesStyle,
+                  style: Theme.of(context).textTheme.overline.copyWith(
+                        color: Theme.of(context).accentColor,
+                        fontSize: 25,
+                      ),
                   textAlign: TextAlign.center,
                 ),
               ),
@@ -98,19 +90,10 @@ class NoteListPage extends StatelessWidget {
     );
   }
 
-  void _launchurl() async {
-    const url = 'https://www.Androidride.com';
-    if (await canLaunch(url)) {
-      await launch(url);
-    } else {
-      throw 'error';
-    }
-  }
-
   Widget notesUI(BuildContext context) {
     return ListView(
       children: [
-        header(),
+        header(context),
         Column(
           children: [
             Padding(
@@ -127,12 +110,18 @@ class NoteListPage extends StatelessWidget {
             ),
             RichText(
               text: TextSpan(
-                style: noNotesStyle,
+                style: Theme.of(context).textTheme.overline.copyWith(
+                      color: Theme.of(context).accentColor,
+                      fontSize: 12,
+                    ),
                 children: [
                   TextSpan(text: 'No hay notas disponibles \nClickea'),
                   TextSpan(
                     text: ' +',
-                    style: boldPlus,
+                    style: Theme.of(context).textTheme.overline.copyWith(
+                          color: Theme.of(context).accentColor,
+                          fontSize: 12,
+                        ),
                     recognizer: TapGestureRecognizer()
                       ..onTap = () {
                         gotoNoteEditScreen(context);
