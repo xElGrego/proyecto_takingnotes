@@ -66,7 +66,7 @@ class _NoteViewPageState extends State<NoteViewPage> {
                 selectedNote?.title,
                 style: Theme.of(context).textTheme.overline.copyWith(
                       color: Theme.of(context).accentColor,
-                      fontSize: 12,
+                      fontSize: 18,
                     ),
               ),
             ),
@@ -95,7 +95,7 @@ class _NoteViewPageState extends State<NoteViewPage> {
                 selectedNote.content,
                 style: Theme.of(context).textTheme.overline.copyWith(
                       color: DeliveryColors.ligthGrey,
-                      fontSize: 12,
+                      fontSize: 16,
                     ),
               ),
             ),

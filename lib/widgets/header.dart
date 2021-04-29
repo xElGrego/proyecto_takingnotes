@@ -1,19 +1,18 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_icomoon_icons/flutter_icomoon_icons.dart';
 import 'package:provider/provider.dart';
 import 'package:proyecto_takingnotes/provider/theme.dart';
-import 'package:proyecto_takingnotes/utils/theme.dart';
 
 class Header extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    bool theme = true;
-    ThemeProvider _mytheme = Provider.of<ThemeProvider>(context);
-
     return GestureDetector(
       child: Container(
         decoration: BoxDecoration(
           color: Theme.of(context).canvasColor,
+          border: Border.all(
+            style: BorderStyle.solid,
+            color: Theme.of(context).accentColor,
+          ),
         ),
         height: 100,
         width: double.infinity,
@@ -27,7 +26,7 @@ class Header extends StatelessWidget {
                 child: Row(
                   children: [
                     Text(
-                      "Mis Deudores",
+                      "Deudores",
                       style: Theme.of(context).textTheme.overline.copyWith(
                             color: Theme.of(context).accentColor,
                             fontSize: 25,
@@ -35,11 +34,13 @@ class Header extends StatelessWidget {
                       textAlign: TextAlign.center,
                     ),
                     Spacer(),
-                    Switch(
-                      value: theme,
-                      onChanged: (value) {
-                        print("Cambiando de tema");
-                      },
+                    Consumer<ThemeProvider>(
+                      builder: (context, notifier, child) => Switch(
+                        value: notifier.darktheme,
+                        onChanged: (value) {
+                          notifier.toogleTheme();
+                        },
+                      ),
                     ),
                   ],
                 ),

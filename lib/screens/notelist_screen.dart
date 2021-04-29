@@ -2,12 +2,9 @@ import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:proyecto_takingnotes/provider/note_provider.dart';
-import 'package:proyecto_takingnotes/provider/theme.dart';
 import 'package:proyecto_takingnotes/screens/noteedit_screen.dart';
-import 'package:proyecto_takingnotes/utils/theme.dart';
 import 'package:proyecto_takingnotes/widgets/header.dart';
 import 'package:proyecto_takingnotes/widgets/note_list.dart';
-import 'package:flutter_icomoon_icons/flutter_icomoon_icons.dart';
 
 class NoteListPage extends StatelessWidget {
   @override

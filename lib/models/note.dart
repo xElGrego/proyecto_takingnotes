@@ -15,8 +15,8 @@ class Note{
   String get imagePath => _imagePath;
 
 
-  String get date{
-    final date = DateTime.fromMicrosecondsSinceEpoch(id);
-    return DateFormat('EEE h:m a, dd/MM/yyyy').format(date);
+  String get date {
+    final date = DateTime.fromMillisecondsSinceEpoch(id);
+    return DateFormat('EEE h:mm a, dd/MM/yyyy').format(date);
   }
 }

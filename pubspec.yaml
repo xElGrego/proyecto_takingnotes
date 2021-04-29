@@ -37,6 +37,7 @@ dependencies:
   url_launcher:
   google_fonts:
   flutter_icomoon_icons:
+  shared_preferences:
 
 
 

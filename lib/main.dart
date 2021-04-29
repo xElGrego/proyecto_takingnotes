@@ -11,7 +11,7 @@ void main() => runApp(
       MultiProvider(
         child: MyApp(),
         providers: [
-          ChangeNotifierProvider(create: (context) => ThemeProvider(ligthTheme)),
+          ChangeNotifierProvider(create: (context) => ThemeProvider()),
           ChangeNotifierProvider(create: (context) => NoteProvider()),
         ],
       ),
@@ -28,16 +28,23 @@ class MyApp extends StatelessWidget {
 class MyMaterialApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'Flutter Demo',
-      debugShowCheckedModeBanner: false,
-      theme: ligthTheme,
-      initialRoute: '/',
-      routes: {
-        '/': (context) => NoteListPage(),
-        NoteViewPage.route: (context) => NoteViewPage(),
-        NoteEditPage.route: (context) => NoteEditPage(),
-      },
+    return ChangeNotifierProvider(
+      create: (_) => ThemeProvider(),
+      child: Consumer<ThemeProvider>( 
+        builder: (context, notifier, child) {
+          return MaterialApp(
+            title: 'Flutter Demo',
+            debugShowCheckedModeBanner: false,
+            theme: notifier.darktheme ? dartkTheme : ligthTheme,
+            initialRoute: '/',
+            routes: {
+              '/': (context) => NoteListPage(),
+              NoteViewPage.route: (context) => NoteViewPage(),
+              NoteEditPage.route: (context) => NoteEditPage(),
+            },
+          );
+        },
+      ),
     );
   }
 }

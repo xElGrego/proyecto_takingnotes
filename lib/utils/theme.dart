@@ -16,7 +16,7 @@ final deliverygrandiant = [DeliveryColors.green, DeliveryColors.purple];
 final _boderLigth = OutlineInputBorder(
   borderRadius: BorderRadius.circular(10),
   borderSide: BorderSide(
-    color: DeliveryColors.veryLigthGrey,
+    color: DeliveryColors.purple,
     style: BorderStyle.solid,
     width: 2,
   ),
@@ -48,12 +48,13 @@ final _shadowLigth = BoxDecoration(
   ],
 );
 
-
 //Asigno el color por medio del displayColor y apply
 final ligthTheme = ThemeData(
   canvasColor: DeliveryColors.white,
+  disabledColor: DeliveryColors.purple,
   accentColor: DeliveryColors.purple,
   bottomAppBarColor: DeliveryColors.veryLigthGrey,
+   dialogBackgroundColor: DeliveryColors.white,
   appBarTheme: AppBarTheme(
     color: DeliveryColors.white,
     textTheme: GoogleFonts.poppinsTextTheme().copyWith(
@@ -68,7 +69,6 @@ final ligthTheme = ThemeData(
     displayColor: DeliveryColors.purple,
     bodyColor: DeliveryColors.purple,
   ),
-
   inputDecorationTheme: InputDecorationTheme(
     border: _boderLigth,
     enabledBorder: _boderLigth,
@@ -86,8 +86,10 @@ final ligthTheme = ThemeData(
 );
 
 final dartkTheme = ThemeData(
-  canvasColor: DeliveryColors.grey,
-  accentColor: DeliveryColors.white,
+  canvasColor: DeliveryColors.dark,
+  accentColor: DeliveryColors.green,
+   disabledColor: DeliveryColors.green,
+  dialogBackgroundColor: DeliveryColors.white,
   bottomAppBarColor: Colors.transparent,
   appBarTheme: AppBarTheme(
     color: DeliveryColors.dark,
@@ -122,4 +124,3 @@ final dartkTheme = ThemeData(
   ),
 );
 //Asigno el color por medio del displayColor y apply
-

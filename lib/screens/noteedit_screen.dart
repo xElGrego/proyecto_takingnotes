@@ -57,7 +57,7 @@ class _NoteEditPageState extends State<NoteEditPage> {
       backgroundColor: Theme.of(context).canvasColor,
       appBar: AppBar(
         title: Text(
-          "Note Edit",
+          id != null ? 'Editar' : 'Agregar',
           style: TextStyle(
             color: Theme.of(context).accentColor,
             fontSize: 30,
@@ -101,9 +101,8 @@ class _NoteEditPageState extends State<NoteEditPage> {
                 textAlign: TextAlign.center,
                 controller: titleController,
                 style: Theme.of(context).textTheme.overline.copyWith(
-                      fontSize: 12,
+                      fontSize: 18,
                       color: Theme.of(context).accentColor,
-
                     ),
                 maxLines: null,
                 textCapitalization: TextCapitalization.sentences,
@@ -112,7 +111,7 @@ class _NoteEditPageState extends State<NoteEditPage> {
                   border: InputBorder.none,
                   hintStyle: Theme.of(context).textTheme.overline.copyWith(
                         color: Theme.of(context).accentColor,
-                        fontSize: 12,
+                        fontSize: 16,
                       ),
                 ),
               ),
@@ -219,7 +218,7 @@ class _NoteEditPageState extends State<NoteEditPage> {
       int id = DateTime.now().millisecondsSinceEpoch;
       Provider.of<NoteProvider>(this.context, listen: false)
           .addNoteOrUpdate(id, title, content, imagePath, EditMode.ADD);
-      Navigator.of(this.context).pushReplacementNamed(NoteViewPage.route, arguments: id);
+      Navigator.of(this.context).pushReplacementNamed(NoteEditPage.route, arguments: id);
     }
   }
 }
