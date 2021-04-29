@@ -26,7 +26,7 @@ class Header extends StatelessWidget {
                 child: Row(
                   children: [
                     Text(
-                      "Deudores",
+                      "Listado",
                       style: Theme.of(context).textTheme.overline.copyWith(
                             color: Theme.of(context).accentColor,
                             fontSize: 25,

@@ -37,6 +37,13 @@ class _NoteViewPageState extends State<NoteViewPage> {
       backgroundColor: Theme.of(context).canvasColor,
       appBar: AppBar(
         elevation: 0.7,
+        title: Text(
+          "Vista Previa",
+          style: Theme.of(context).textTheme.overline.copyWith(
+                color: Theme.of(context).accentColor,
+                fontSize: 18,
+              ),
+        ),
         leading: IconButton(
           icon: Icon(
             Icons.arrow_back,

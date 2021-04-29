@@ -62,18 +62,19 @@ class NoteListPage extends StatelessWidget {
  
 
   Widget notesUI( BuildContext context ) {
+    final size = MediaQuery.of(context).size;
     return ListView(
       children: [
         Header(),
         Column(
           children: [
             Padding(
-              padding: EdgeInsets.only(top: 50.0),
+              padding: EdgeInsets.only(top: 20.0),
               child: Image.asset(
                 "assets/crying-emoji.png",
-                fit: BoxFit.cover,
-                height: 200,
-                width: 200,
+                fit: BoxFit.contain,
+                height: size.height / 2,
+                width: size.width,
               ),
             ),
             SizedBox(
@@ -83,7 +84,7 @@ class NoteListPage extends StatelessWidget {
               text: TextSpan(
                 style: Theme.of(context).textTheme.overline.copyWith(
                       color: Theme.of(context).accentColor,
-                      fontSize: 12,
+                      fontSize: 18,
                     ),
                 children: [
                   TextSpan(text: 'No hay notas disponibles \nClickea'),
@@ -91,7 +92,7 @@ class NoteListPage extends StatelessWidget {
                     text: ' +',
                     style: Theme.of(context).textTheme.overline.copyWith(
                           color: Theme.of(context).accentColor,
-                          fontSize: 12,
+                          fontSize: 24,
                         ),
                     recognizer: TapGestureRecognizer()
                       ..onTap = () {

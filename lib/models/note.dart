@@ -17,6 +17,6 @@ class Note{
 
   String get date {
     final date = DateTime.fromMillisecondsSinceEpoch(id);
-    return DateFormat('EEE h:mm a, dd/MM/yyyy').format(date);
+    return DateFormat('EEE h:mm a, dd/MM/yyyy',Intl.withLocale('es', () => null)).format(date, );
   }
 }

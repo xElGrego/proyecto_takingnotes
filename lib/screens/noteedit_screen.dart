@@ -7,6 +7,7 @@ import 'package:path_provider/path_provider.dart';
 import 'package:provider/provider.dart';
 import 'package:proyecto_takingnotes/provider/note_provider.dart';
 import 'package:proyecto_takingnotes/models/note.dart';
+import 'package:proyecto_takingnotes/screens/notelist_screen.dart';
 import 'package:proyecto_takingnotes/screens/noteview_screen.dart';
 import 'package:proyecto_takingnotes/utils/constants.dart';
 
@@ -218,7 +219,7 @@ class _NoteEditPageState extends State<NoteEditPage> {
       int id = DateTime.now().millisecondsSinceEpoch;
       Provider.of<NoteProvider>(this.context, listen: false)
           .addNoteOrUpdate(id, title, content, imagePath, EditMode.ADD);
-      Navigator.of(this.context).pushReplacementNamed(NoteEditPage.route, arguments: id);
+      Navigator.of(this.context).pushReplacementNamed(NoteViewPage.route , arguments: id);
     }
   }
 }
