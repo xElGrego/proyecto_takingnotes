@@ -36,6 +36,7 @@ dependencies:
   sqflite:
   url_launcher:
   google_fonts:
+  flutter_icomoon_icons:
 
 
 

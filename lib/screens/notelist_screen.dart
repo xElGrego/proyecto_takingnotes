@@ -1,17 +1,20 @@
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:proyecto_takingnotes/helper/note_provider.dart';
+import 'package:proyecto_takingnotes/provider/note_provider.dart';
+import 'package:proyecto_takingnotes/provider/theme.dart';
 import 'package:proyecto_takingnotes/screens/noteedit_screen.dart';
 import 'package:proyecto_takingnotes/utils/theme.dart';
+import 'package:proyecto_takingnotes/widgets/header.dart';
 import 'package:proyecto_takingnotes/widgets/note_list.dart';
+import 'package:flutter_icomoon_icons/flutter_icomoon_icons.dart';
 
 class NoteListPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return FutureBuilder(
       future: Provider.of<NoteProvider>(context, listen: false).getNotes(),
-      builder: (_, snapshot) {
+      builder: (context, snapshot) {
         if (snapshot.connectionState == ConnectionState.waiting) {
           return Center(
             child: CircularProgressIndicator(),
@@ -29,7 +32,7 @@ class NoteListPage extends StatelessWidget {
                           itemCount: noteprovider.items.length + 1,
                           itemBuilder: (context, index) {
                             if (index == 0) {
-                              return header(context);
+                              return Header();
                             } else {
                               final i = index - 1;
                               final item = noteprovider.items[i];
@@ -59,41 +62,12 @@ class NoteListPage extends StatelessWidget {
     );
   }
 
-  Widget header(BuildContext context) {
-    return GestureDetector(
-      child: Container(
-        decoration: BoxDecoration(
-          color: Theme.of(context).canvasColor,
-        ),
-        height: 100,
-        width: double.infinity,
-        child: Padding(
-          padding: EdgeInsets.only(top: 26, right: 10, left: 10),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.stretch,
-            children: [
-              Padding(
-                padding: EdgeInsets.all(5),
-                child: Text(
-                  "NotsGrego",
-                  style: Theme.of(context).textTheme.overline.copyWith(
-                        color: Theme.of(context).accentColor,
-                        fontSize: 25,
-                      ),
-                  textAlign: TextAlign.center,
-                ),
-              ),
-            ],
-          ),
-        ),
-      ),
-    );
-  }
+ 
 
-  Widget notesUI(BuildContext context) {
+  Widget notesUI( BuildContext context ) {
     return ListView(
       children: [
-        header(context),
+        Header(),
         Column(
           children: [
             Padding(

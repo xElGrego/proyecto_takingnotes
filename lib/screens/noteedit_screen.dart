@@ -5,7 +5,7 @@ import 'package:image_picker/image_picker.dart';
 import 'package:path/path.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:provider/provider.dart';
-import 'package:proyecto_takingnotes/helper/note_provider.dart';
+import 'package:proyecto_takingnotes/provider/note_provider.dart';
 import 'package:proyecto_takingnotes/models/note.dart';
 import 'package:proyecto_takingnotes/screens/noteview_screen.dart';
 import 'package:proyecto_takingnotes/utils/constants.dart';
@@ -56,7 +56,6 @@ class _NoteEditPageState extends State<NoteEditPage> {
     return Scaffold(
       backgroundColor: Theme.of(context).canvasColor,
       appBar: AppBar(
-        
         title: Text(
           "Note Edit",
           style: TextStyle(

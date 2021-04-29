@@ -2,7 +2,7 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:proyecto_takingnotes/helper/note_provider.dart';
+import 'package:proyecto_takingnotes/provider/note_provider.dart';
 import 'package:proyecto_takingnotes/models/note.dart';
 import 'package:proyecto_takingnotes/screens/noteedit_screen.dart';
 import 'package:proyecto_takingnotes/utils/constants.dart';
